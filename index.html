@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Samuel Android Panel</title>
+
+<style>
+:root{
+        --panel-color:#111;
+            --accent:#ff2aa1;
+}
+
+body{
+        margin:0;
+            background:#000;
+                font-family:Arial;
+                    color:white;
+}
+
+/* LOGIN */
+#loginBox{
+        width:300px;
+            margin:120px auto;
+                padding:20px;
+                    background:#1a1a1a;
+                        border-radius:15px;
+                            text-align:center;
+}
+
+input,button{
+        width:95%;
+            padding:10px;
+                margin:6px 0;
+                    border-radius:8px;
+                        border:none;
+}
+
+button{
+        background:var(--accent);
+            color:white;
+                font-weight:bold;
+}
+
+/* BOLINHA */
+#bubble{
+        width:55px;
+            height:55px;
+                background:var(--accent);
+                    border-radius:50%;
+                        position:fixed;
+                            bottom:120px;
+                                right:20px;
+                                    display:none;
+                                        justify-content:center;
+                                            align-items:center;
+                                                font-weight:bold;
+                                                    cursor:grab;
+                                                        z-index:9999;
+}
+
+/* PAINEL */
+#panel{
+        position:fixed;
+            top:80px;
+                left:10px;
+                    width:90%;
+                        max-width:420px;
+                            background:var(--panel-color);
+                                border-radius:12px;
+                                    display:none;
+                                        z-index:9999;
+}
+
+/* TOPO */
+#top{
+        padding:10px;
+            background:#1a1a1a;
+                display:flex;
+                    justify-content:space-between;
+                        cursor:grab;
+}
+
+/* TABS */
+#tabs{
+        display:flex;
+            gap:8px;
+                padding:10px;
+}
+
+.tab{
+        padding:8px 12px;
+            background:var(--accent);
+                border-radius:6px;
+                    cursor:pointer;
+}
+
+/* CONTEÚDO */
+.section{
+        padding:15px;
+            display:none;
+}
+
+.section.active{
+        display:grid;
+            grid-template-columns:repeat(2,1fr);
+                gap:10px;
+}
+
+.toggle{
+        background:#222;
+            padding:10px;
+                border-radius:8px;
+                    text-align:center;
+                        cursor:pointer;
+}
+
+.toggle.active{
+        background:var(--accent);
+}
+
+/* INFO */
+#info{
+        display:block;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginBox">
+    <h3>LOGIN</h3>
+        <input id="user" placeholder="Usuário">
+            <input id="pass" type="password" placeholder="Senha">
+                <button onclick="loginApp()">LOGAR</button>
+                </div>
+
+                <!-- BOLINHA -->
+                <div id="bubble">FF</div>
+
+                <!-- PAINEL -->
+                <div id="panel">
+                    <div id="top">
+                            <span>Samuel Android Panel</span>
+                                    <span onclick="togglePanel()">✖</span>
+                                        </div>
+
+                                            <div id="tabs">
+                                                    <div class="tab" onclick="openTab('esp')">ESP</div>
+                                                            <div class="tab" onclick="openTab('aim')">AIMBOT</div>
+                                                                    <div class="tab" onclick="openTab('info')">INFO</div>
+                                                                        </div>
+
+                                                                            <!-- ESP -->
+                                                                                <div id="esp" class="section active">
+                                                                                        <div class="toggle" onclick="toggle(this)">ESP Lines</div>
+                                                                                                <div class="toggle" onclick="toggle(this)">ESP Box</div>
+                                                                                                        <div class="toggle" onclick="toggle(this)">ESP Name</div>
+                                                                                                                <div class="toggle" onclick="toggle(this)">ESP Health</div>
+                                                                                                                        <div class="toggle" onclick="toggle(this)">ESP Distance</div>
+                                                                                                                                <div class="toggle" onclick="toggle(this)">ESP Skeleton</div>
+                                                                                                                                    </div>
+
+                                                                                                                                        <!-- AIMBOT -->
+                                                                                                                                            <div id="aim" class="section">
+                                                                                                                                                    <div class="toggle" onclick="toggle(this)">Aimbot Head</div>
+                                                                                                                                                            <div class="toggle" onclick="toggle(this)">Aimbot Body</div>
+                                                                                                                                                                </div>
+
+                                                                                                                                                                    <!-- INFO -->
+                                                                                                                                                                        <div id="info" class="section">
+                                                                                                                                                                                <div style="grid-column:1/3">
+                                                                                                                                                                                            <p>Criador: <b>samuel_mi244</b></p>
+                                                                                                                                                                                                        <p>Cor do painel:</p>
+                                                                                                                                                                                                                    <input type="color" onchange="changeColor(this.value)">
+                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                </div>
+
+                                                                                                                                                                                                                                <script>
+                                                                                                                                                                                                                                function loginApp(){
+                                                                                                                                                                                                                                        if(user.value==="ffh4x" && pass.value==="0906"){
+                                                                                                                                                                                                                                                    loginBox.style.display="none";
+                                                                                                                                                                                                                                                            bubble.style.display="flex";
+                                                                                                                                                                                                                                        }else alert("Login incorreto");
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                bubble.onclick=togglePanel;
+
+                                                                                                                                                                                                                                function togglePanel(){
+                                                                                                                                                                                                                                        panel.style.display=panel.style.display==="block"?"none":"block";
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                function openTab(id){
+                                                                                                                                                                                                                                        document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+                                                                                                                                                                                                                                            document.getElementById(id).classList.add("active");
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                function toggle(el){
+                                                                                                                                                                                                                                        el.classList.toggle("active");
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                function changeColor(color){
+                                                                                                                                                                                                                                        document.documentElement.style.setProperty("--accent",color);
+                                                                                                                                                                                                                                }
+
+                                                                                                                                                                                                                                /* ARRASTAR */
+                                                                                                                                                                                                                                function drag(el,handle=el){
+                                                                                                                                                                                                                                    let x=0,y=0,mx=0,my=0;
+                                                                                                                                                                                                                                    handle.onmousedown=e=>{
+                                                                                                                                                                                                                                        mx=e.clientX;my=e.clientY;
+                                                                                                                                                                                                                                        document.onmousemove=ev=>{
+                                                                                                                                                                                                                                            x=mx-ev.clientX;y=my-ev.clientY;
+                                                                                                                                                                                                                                            mx=ev.clientX;my=ev.clientY;
+                                                                                                                                                                                                                                            el.style.top=(el.offsetTop-y)+"px";
+                                                                                                                                                                                                                                            el.style.left=(el.offsetLeft-x)+"px";
+                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                        document.onmouseup=()=>document.onmousemove=null;
+                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                drag(bubble);
+                                                                                                                                                                                                                                drag(panel,top);
+                                                                                                                                                                                                                                </script>
+
+                                                                                                                                                                                                                                </body>
+                                                                                                                                                                                                                                </html>
+                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                }
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
