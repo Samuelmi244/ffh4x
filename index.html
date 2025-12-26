@@ -6,121 +6,129 @@
 
 <style>
 :root{
-        --panel-color:#111;
-            --accent:#ff2aa1;
+  --accent:#ff2aa1;
+  --bg:#0b0b0b;
+  --panel:#151515;
 }
 
+*{box-sizing:border-box}
+
 body{
-        margin:0;
-            background:#000;
-                font-family:Arial;
-                    color:white;
+  margin:0;
+  background:var(--bg);
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
 }
 
 /* LOGIN */
 #loginBox{
-        width:300px;
-            margin:120px auto;
-                padding:20px;
-                    background:#1a1a1a;
-                        border-radius:15px;
-                            text-align:center;
+  width:300px;
+  margin:120px auto;
+  padding:20px;
+  background:#1c1c1c;
+  border-radius:16px;
+  text-align:center;
 }
 
+/* INPUTS */
 input,button{
-        width:95%;
-            padding:10px;
-                margin:6px 0;
-                    border-radius:8px;
-                        border:none;
+  width:100%;
+  padding:12px;
+  margin:6px 0;
+  border-radius:10px;
+  border:none;
 }
 
 button{
-        background:var(--accent);
-            color:white;
-                font-weight:bold;
+  background:var(--accent);
+  color:#fff;
+  font-weight:bold;
 }
 
 /* BOLINHA */
 #bubble{
-        width:55px;
-            height:55px;
-                background:var(--accent);
-                    border-radius:50%;
-                        position:fixed;
-                            bottom:120px;
-                                right:20px;
-                                    display:none;
-                                        justify-content:center;
-                                            align-items:center;
-                                                font-weight:bold;
-                                                    cursor:grab;
-                                                        z-index:9999;
+  width:56px;
+  height:56px;
+  background:var(--accent);
+  border-radius:50%;
+  position:fixed;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  font-weight:bold;
+  z-index:9999;
+  touch-action:none;
 }
 
 /* PAINEL */
 #panel{
-        position:fixed;
-            top:80px;
-                left:10px;
-                    width:90%;
-                        max-width:420px;
-                            background:var(--panel-color);
-                                border-radius:12px;
-                                    display:none;
-                                        z-index:9999;
+  position:fixed;
+  top:90px;
+  left:10px;
+  width:92%;
+  max-width:420px;
+  background:var(--panel);
+  border-radius:14px;
+  display:none;
+  z-index:9998;
+  animation:fade .25s ease;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:scale(.95)}
+  to{opacity:1;transform:scale(1)}
 }
 
 /* TOPO */
 #top{
-        padding:10px;
-            background:#1a1a1a;
-                display:flex;
-                    justify-content:space-between;
-                        cursor:grab;
+  padding:12px;
+  background:#1f1f1f;
+  border-radius:14px 14px 0 0;
+  display:flex;
+  justify-content:space-between;
 }
 
 /* TABS */
 #tabs{
-        display:flex;
-            gap:8px;
-                padding:10px;
+  display:flex;
+  gap:8px;
+  padding:10px;
 }
 
 .tab{
-        padding:8px 12px;
-            background:var(--accent);
-                border-radius:6px;
-                    cursor:pointer;
+  flex:1;
+  text-align:center;
+  padding:8px;
+  background:#222;
+  border-radius:8px;
 }
 
-/* CONTEÚDO */
+.tab.active{
+  background:var(--accent);
+}
+
+/* SEÇÕES */
 .section{
-        padding:15px;
-            display:none;
+  display:none;
+  padding:14px;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
 .section.active{
-        display:grid;
-            grid-template-columns:repeat(2,1fr);
-                gap:10px;
+  display:grid;
 }
 
+/* TOGGLE */
 .toggle{
-        background:#222;
-            padding:10px;
-                border-radius:8px;
-                    text-align:center;
-                        cursor:pointer;
+  padding:12px;
+  background:#222;
+  border-radius:10px;
+  text-align:center;
 }
 
 .toggle.active{
-        background:var(--accent);
-}
-
-/* INFO */
-#info{
-        display:block;
+  background:var(--accent);
 }
 </style>
 </head>
@@ -129,122 +137,126 @@ button{
 
 <!-- LOGIN -->
 <div id="loginBox">
-    <h3>LOGIN</h3>
-        <input id="user" placeholder="Usuário">
-            <input id="pass" type="password" placeholder="Senha">
-                <button onclick="loginApp()">LOGAR</button>
-                </div>
+  <h3>LOGIN</h3>
+  <input id="user" placeholder="Usuário">
+  <input id="pass" type="password" placeholder="Senha">
+  <button onclick="login()">LOGAR</button>
+</div>
 
-                <!-- BOLINHA -->
-                <div id="bubble">FF</div>
+<!-- BOLINHA -->
+<div id="bubble">FF</div>
 
-                <!-- PAINEL -->
-                <div id="panel">
-                    <div id="top">
-                            <span>Samuel Android Panel</span>
-                                    <span onclick="togglePanel()">✖</span>
-                                        </div>
+<!-- PAINEL -->
+<div id="panel">
+  <div id="top">
+    <b>Samuel Android Panel</b>
+    <span onclick="togglePanel()">✖</span>
+  </div>
 
-                                            <div id="tabs">
-                                                    <div class="tab" onclick="openTab('esp')">ESP</div>
-                                                            <div class="tab" onclick="openTab('aim')">AIMBOT</div>
-                                                                    <div class="tab" onclick="openTab('info')">INFO</div>
-                                                                        </div>
+  <div id="tabs">
+    <div class="tab active" onclick="openTab('esp',this)">ESP</div>
+    <div class="tab" onclick="openTab('aim',this)">AIM</div>
+    <div class="tab" onclick="openTab('info',this)">INFO</div>
+  </div>
 
-                                                                            <!-- ESP -->
-                                                                                <div id="esp" class="section active">
-                                                                                        <div class="toggle" onclick="toggle(this)">ESP Lines</div>
-                                                                                                <div class="toggle" onclick="toggle(this)">ESP Box</div>
-                                                                                                        <div class="toggle" onclick="toggle(this)">ESP Name</div>
-                                                                                                                <div class="toggle" onclick="toggle(this)">ESP Health</div>
-                                                                                                                        <div class="toggle" onclick="toggle(this)">ESP Distance</div>
-                                                                                                                                <div class="toggle" onclick="toggle(this)">ESP Skeleton</div>
-                                                                                                                                    </div>
+  <div id="esp" class="section active">
+    <div class="toggle" onclick="tg(this)">ESP Box</div>
+    <div class="toggle" onclick="tg(this)">ESP Line</div>
+    <div class="toggle" onclick="tg(this)">ESP Name</div>
+    <div class="toggle" onclick="tg(this)">ESP Health</div>
+  </div>
 
-                                                                                                                                        <!-- AIMBOT -->
-                                                                                                                                            <div id="aim" class="section">
-                                                                                                                                                    <div class="toggle" onclick="toggle(this)">Aimbot Head</div>
-                                                                                                                                                            <div class="toggle" onclick="toggle(this)">Aimbot Body</div>
-                                                                                                                                                                </div>
+  <div id="aim" class="section">
+    <div class="toggle" onclick="tg(this)">Aimbot Head</div>
+    <div class="toggle" onclick="tg(this)">Aimbot Body</div>
+  </div>
 
-                                                                                                                                                                    <!-- INFO -->
-                                                                                                                                                                        <div id="info" class="section">
-                                                                                                                                                                                <div style="grid-column:1/3">
-                                                                                                                                                                                            <p>Criador: <b>samuel_mi244</b></p>
-                                                                                                                                                                                                        <p>Cor do painel:</p>
-                                                                                                                                                                                                                    <input type="color" onchange="changeColor(this.value)">
-                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                </div>
+  <div id="info" class="section">
+    <div style="grid-column:1/3">
+      <p>Criador: <b>samuel_mi244</b></p>
+      <p>Cor do painel:</p>
+      <input type="color" onchange="setColor(this.value)">
+      <br><br>
+      <button onclick="logout()">SAIR</button>
+    </div>
+  </div>
+</div>
 
-                                                                                                                                                                                                                                <script>
-                                                                                                                                                                                                                                function loginApp(){
-                                                                                                                                                                                                                                        if(user.value==="ffh4x" && pass.value==="0906"){
-                                                                                                                                                                                                                                                    loginBox.style.display="none";
-                                                                                                                                                                                                                                                            bubble.style.display="flex";
-                                                                                                                                                                                                                                        }else alert("Login incorreto");
-                                                                                                                                                                                                                                }
+<script>
+/* RESTAURAR */
+if(localStorage.logged==="1"){
+  bubble.style.display="flex";
+  restoreBubble();
+}
+if(localStorage.color){
+  document.documentElement.style.setProperty("--accent",localStorage.color);
+}
 
-                                                                                                                                                                                                                                bubble.onclick=togglePanel;
+/* LOGIN */
+function login(){
+  if(user.value==="ffh4x" && pass.value==="0906"){
+    localStorage.logged="1";
+    bubble.style.display="flex";
+    saveBubble();
+  }else alert("Login incorreto");
+}
 
-                                                                                                                                                                                                                                function togglePanel(){
-                                                                                                                                                                                                                                        panel.style.display=panel.style.display==="block"?"none":"block";
-                                                                                                                                                                                                                                }
+/* LOGOUT */
+function logout(){
+  localStorage.clear();
+  panel.style.display="none";
+  bubble.style.display="none";
+}
 
-                                                                                                                                                                                                                                function openTab(id){
-                                                                                                                                                                                                                                        document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-                                                                                                                                                                                                                                            document.getElementById(id).classList.add("active");
-                                                                                                                                                                                                                                }
+/* PAINEL */
+bubble.onclick=togglePanel;
+function togglePanel(){
+  panel.style.display = panel.style.display==="block"?"none":"block";
+}
 
-                                                                                                                                                                                                                                function toggle(el){
-                                                                                                                                                                                                                                        el.classList.toggle("active");
-                                                                                                                                                                                                                                }
+/* TABS */
+function openTab(id,el){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  el.classList.add("active");
+}
 
-                                                                                                                                                                                                                                function changeColor(color){
-                                                                                                                                                                                                                                        document.documentElement.style.setProperty("--accent",color);
-                                                                                                                                                                                                                                }
+/* TOGGLE */
+function tg(el){
+  el.classList.toggle("active");
+}
 
-                                                                                                                                                                                                                                /* ARRASTAR */
-                                                                                                                                                                                                                                function drag(el,handle=el){
-                                                                                                                                                                                                                                    let x=0,y=0,mx=0,my=0;
-                                                                                                                                                                                                                                    handle.onmousedown=e=>{
-                                                                                                                                                                                                                                        mx=e.clientX;my=e.clientY;
-                                                                                                                                                                                                                                        document.onmousemove=ev=>{
-                                                                                                                                                                                                                                            x=mx-ev.clientX;y=my-ev.clientY;
-                                                                                                                                                                                                                                            mx=ev.clientX;my=ev.clientY;
-                                                                                                                                                                                                                                            el.style.top=(el.offsetTop-y)+"px";
-                                                                                                                                                                                                                                            el.style.left=(el.offsetLeft-x)+"px";
-                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                        document.onmouseup=()=>document.onmousemove=null;
-                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                drag(bubble);
-                                                                                                                                                                                                                                drag(panel,top);
-                                                                                                                                                                                                                                </script>
+/* COR */
+function setColor(c){
+  document.documentElement.style.setProperty("--accent",c);
+  localStorage.color=c;
+}
 
-                                                                                                                                                                                                                                </body>
-                                                                                                                                                                                                                                </html>
-                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                }
+/* ARRASTAR + SALVAR POSIÇÃO */
+let ox,oy;
+bubble.addEventListener("touchstart",e=>{
+  ox=e.touches[0].clientX-bubble.offsetLeft;
+  oy=e.touches[0].clientY-bubble.offsetTop;
+});
+bubble.addEventListener("touchmove",e=>{
+  e.preventDefault();
+  bubble.style.left=e.touches[0].clientX-ox+"px";
+  bubble.style.top=e.touches[0].clientY-oy+"px";
+  saveBubble();
+});
+
+function saveBubble(){
+  localStorage.bx=bubble.style.left;
+  localStorage.by=bubble.style.top;
 }
+function restoreBubble(){
+  if(localStorage.bx){
+    bubble.style.left=localStorage.bx;
+    bubble.style.top=localStorage.by;
+  }
 }
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
+</script>
+
+</body>
+</html>
